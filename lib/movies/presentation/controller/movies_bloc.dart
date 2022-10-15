@@ -2,6 +2,8 @@ import 'dart:async';
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/base_use_case.dart';
+import 'package:movies_app/core/services/services_locator.dart';
 import 'package:movies_app/core/utils/enums.dart';
 import 'package:movies_app/movies/domain/usecase/get_now_playing_movies_usecase.dart';
 import 'package:movies_app/movies/domain/usecase/get_popular_movies_usecase.dart';
@@ -26,7 +28,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
 
   FutureOr<void> _getNowPlayingMovies(
       GetNowPlayingEvent event, Emitter<MoviesState> emit) async {
-    final result = await getNowPlayingMoviesUseCase();
+    final result = await getNowPlayingMoviesUseCase(serviceLocator<NoParameters>());
 
     result.fold((failure) {
       emit(state.copyWith(
@@ -40,7 +42,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
 
   FutureOr<void> _getPopularMovies(
       GetPopularMoviesEvent event, Emitter<MoviesState> emit) async {
-    final result = await getPopularMoviesUseCase();
+    final result = await getPopularMoviesUseCase(serviceLocator<NoParameters>());
 
     result.fold(
       (failure) {
@@ -56,7 +58,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
 
   FutureOr<void> _getTopRatedMovies(
       GetTopRatedMoviesEvent event, Emitter<MoviesState> emit) async {
-    final result = await getTopRatedMoviesUseCase();
+    final result = await getTopRatedMoviesUseCase(serviceLocator<NoParameters>());
 
     result.fold(
       (failure) {
