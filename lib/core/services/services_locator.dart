@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:movies_app/core/base_use_case.dart';
+import 'package:movies_app/core/usecase/base_use_case.dart';
 import 'package:movies_app/movies/data/datasource/movie_remote_data_source.dart';
 import 'package:movies_app/movies/data/repository/movies_repository.dart';
 import 'package:movies_app/movies/domain/repository/base_movies_repository.dart';

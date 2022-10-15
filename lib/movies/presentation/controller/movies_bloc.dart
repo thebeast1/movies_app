@@ -2,7 +2,7 @@ import 'dart:async';
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/base_use_case.dart';
+import 'package:movies_app/core/usecase/base_use_case.dart';
 import 'package:movies_app/core/services/services_locator.dart';
 import 'package:movies_app/core/utils/enums.dart';
 import 'package:movies_app/movies/domain/usecase/get_now_playing_movies_usecase.dart';
