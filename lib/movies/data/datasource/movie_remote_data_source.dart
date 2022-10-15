@@ -1,3 +1,5 @@
+
+
 import 'package:dio/dio.dart';
 import 'package:movies_app/core/error/exceptions.dart';
 import 'package:movies_app/core/network/api_constants.dart';
@@ -15,37 +17,58 @@ abstract class BaseMovieRemoteDataSource {
 class MovieRemoteDataSource implements BaseMovieRemoteDataSource {
   @override
   Future<List<MovieModel>> getNowPlaying() async {
-    final response = await Dio().get(ApiConstants.nowPlayingPath);
-    if (response.statusCode == 200) {
-      return List<MovieModel>.from((response.data["results"] as List)
-          .map((e) => MovieModel.fromJson(e)));
-    } else {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel.fromJson(response.data));
+    try {
+      final response = await Dio(BaseOptions(
+        connectTimeout: 6000,
+      )).get(ApiConstants.nowPlayingPath);
+      if (response.statusCode == 200) {
+        return List<MovieModel>.from((response.data["results"] as List)
+            .map((e) => MovieModel.fromJson(e)));
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(response.data));
+      }
+    } catch (e) {
+      throw LocalDataBaseException(errorMessage: e.toString());
     }
   }
 
   @override
   Future<List<MovieModel>> getPopularMovies() async {
-    final response = await Dio().get(ApiConstants.popularMoviesPath);
-    if (response.statusCode == 200) {
-      return List<MovieModel>.from((response.data["results"] as List)
-          .map((e) => MovieModel.fromJson(e)));
-    } else {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel.fromJson(response.data));
+    try {
+      final response = await Dio(BaseOptions(
+        connectTimeout: 6000,
+      )).get(ApiConstants.popularMoviesPath);
+      if (response.statusCode == 200) {
+        return List<MovieModel>.from((response.data["results"] as List)
+            .map((e) => MovieModel.fromJson(e)));
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(response.data));
+      }
+    } catch (e) {
+      throw LocalDataBaseException(errorMessage: e.toString());
     }
   }
 
   @override
   Future<List<MovieModel>> getTopRatedMovies() async {
-    final response = await Dio().get(ApiConstants.topRatedMoviesPath);
-    if (response.statusCode == 200) {
-      return List<MovieModel>.from((response.data["results"] as List)
-          .map((e) => MovieModel.fromJson(e)));
-    } else {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel.fromJson(response.data));
+    try {
+      final response = await Dio(BaseOptions(
+        connectTimeout: 6000,
+      )).get(ApiConstants.topRatedMoviesPath);
+
+
+      if (response.statusCode == 200) {
+        return List<MovieModel>.from((response.data["results"] as List)
+            .map((e) => MovieModel.fromJson(e)));
+      } else {
+
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(response.data));
+      }
+    } catch (e) {
+      throw LocalDataBaseException(errorMessage: e.toString());
     }
   }
 }
