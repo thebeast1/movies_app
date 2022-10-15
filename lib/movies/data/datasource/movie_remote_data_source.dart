@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:movies_app/core/error/exceptions.dart';
 import 'package:movies_app/core/network/api_constants.dart';
@@ -87,12 +89,16 @@ class MovieRemoteDataSource implements BaseMovieRemoteDataSource {
       )).get(ApiConstants.movieDetailsPath(movieDetailsParams.movieId));
 
       if (response.statusCode == 200) {
+        log("##${response.data}");
+
         return MovieDetailModel.fromJson(response.data);
       } else {
         throw ServerException(
             errorMessageModel: ErrorMessageModel.fromJson(response.data));
       }
     } catch (e) {
+      log("getMovieDetails ${e.toString()}");
+
       throw LocalDataBaseException(errorMessage: e.toString());
     }
   }
@@ -106,13 +112,14 @@ class MovieRemoteDataSource implements BaseMovieRemoteDataSource {
       )).get(ApiConstants.recommendationPath(recommendationParams.movieId));
 
       if (response.statusCode == 200) {
-        return List<RecommendationModel>.from((response.data["result"] as List)
+        return List<RecommendationModel>.from((response.data["results"] as List)
             .map((e) => RecommendationModel.fromJson(e)));
       } else {
         throw ServerException(
             errorMessageModel: ErrorMessageModel.fromJson(response.data));
       }
     } catch (e) {
+      log("getRecommendations ${e.toString()}");
       throw LocalDataBaseException(errorMessage: e.toString());
     }
   }

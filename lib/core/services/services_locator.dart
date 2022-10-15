@@ -23,7 +23,7 @@ class ServiceLocator {
         ));
 
     serviceLocator.registerFactory<MovieDetailsBloc>(
-        () => MovieDetailsBloc(serviceLocator()));
+        () => MovieDetailsBloc(serviceLocator(), serviceLocator()));
 
     /// Use Cases
     serviceLocator.registerLazySingleton(

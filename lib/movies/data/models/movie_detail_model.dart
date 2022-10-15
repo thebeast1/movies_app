@@ -19,11 +19,11 @@ class MovieDetailModel extends MovieDetail {
           id: json["id"],
           overview: json["overview"],
           releaseDate: json["release_date"],
-          runTime: json["runTime"],
+          runTime: json["runtime"],
           title: json["title"],
           genres: json["genres"] != null
               ? List<Genres>.from(
                   json["genres"].map((e) => GenresModel.fromJson(e)))
               : [],
-          voteAverage: json["vote_average"]);
+          voteAverage: json["vote_average"].toDouble());
 }
